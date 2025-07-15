@@ -1,47 +1,47 @@
-import flet as ft
+import flet as ft 
 from datetime import datetime
 
 def main(page: ft.Page):
-    page.title = 'Моё первое приложение'
-
+    # page.add(ft.Text("Hello world"))
+    page.title = 'Мое первое приложение на Flet'
     page.theme_mode = ft.ThemeMode.LIGHT
 
-    greeting_text = ft.Text('Привет мир')
+    greeting_text = ft.Text("Привет, мир!")
 
-    greet_button = ft.ElevatedButton('Отправить')
-
-    greet_history = []
-    histoy_text = ft.Text("История приветствия: ")
+    greeting_history = []
+    history_text = ft.Text("История приветствий:")
 
     def on_button_click(_):
         name = name_input.value.strip()
 
         if name:
-            greeting_text.value = f'Привет, {name}!'
-            name_input.value = ''  
-
-            greet_button.text = 'Отправить ещё раз'
-
+            greeting_text.value = f"Привет, {name}!"
+            greet_button.text = "Отправить еще раз"
+            name_input.value = ""
+            
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            greet_history.append(f'{timestamp} - {name}')
-            histoy_text.value = "История приветствия: \n" + "\n".join(greet_history)
+            greeting_history.append(f'{timestamp} - {name}')
+            history_text.value = "История приветствий:\n" + "\n".join(greeting_history)
         else:
-            greeting_text.value = 'Пожалуйста, введите имя!'
-
+            greeting_text.value = "Пожалуйте, введите имя!" 
+        
+        # print(greeting_text.value)
         page.update()
-
+    
     def clear_history(_):
-        greet_history.clear()
-        histoy_text.value = "История очищена: "
+        print("Test")
+        greeting_history.clear()
+        print(f"История приветствий очищена. {greeting_history}")
+        history_text.value = "История приветствий:"
         page.update()
 
-    clear_button = ft.IconButton(icon=ft.Icons.DELETE, tooltip='Очистить историю', 
-                                 on_click=clear_history, icon_color=ft.Colors.RED_ACCENT_700)
+    clear_button = ft.IconButton(icon_color=ft.Colors.GREEN, icon=ft.Icons.DELETE_FOREVER, tooltip="Очистить историю", on_click=clear_history)
 
-    name_input = ft.TextField(label='Введите имя:', on_submit=on_button_click)
+    name_input = ft.TextField(label="Атынарды жазгыла:✍🏻", on_submit=on_button_click)
+    greet_button = ft.ElevatedButton("Отправить", on_click=on_button_click, icon=ft.Icons.SEND)
+    greet_button_1 = ft.TextButton("Отправить", on_click=on_button_click, icon=ft.Icons.SEND)
 
-    greet_button.on_click = on_button_click
+    page.add(greeting_text, name_input, greet_button, greet_button_1, clear_button, history_text)
 
-    page.add(greeting_text, name_input, greet_button, clear_button, histoy_text)
 
 ft.app(target=main, view=ft.WEB_BROWSER)
