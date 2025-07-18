@@ -46,7 +46,7 @@ def main(page: ft.Page):
         quote_text.value = ""
         page.update()
 
-    def toggle_theme(e):
+    def toggle_theme(_):
         page.theme_mode = (
             ft.ThemeMode.DARK if page.theme_mode == ft.ThemeMode.LIGHT else ft.ThemeMode.LIGHT
         )
@@ -57,14 +57,21 @@ def main(page: ft.Page):
     clear_button = ft.IconButton(icon_color=ft.Colors.RED, icon=ft.Icons.DELETE, tooltip="Очистить историю", on_click=clear_history)
     theme_switch = ft.Switch(label="Темная тема", on_change=toggle_theme)
 
-    page.add(
-        theme_switch,
-        greeting_text,
-        quote_text,
-        name_input,
-        greet_button,
-        clear_button,
-        history_text
-    )
+    # page.add(
+    #     theme_switch,
+    #     greeting_text,
+    #     quote_text,
+    #     name_input,
+    #     greet_button,
+    #     clear_button,
+    #     history_text
+    # )
+    page.add(ft.Row([theme_switch, clear_button], alignment=ft.MainAxisAlignment.SPACE_EVENLY), 
+             ft.Row([greeting_text], alignment=ft.MainAxisAlignment.CENTER), 
+             ft.Row([quote_text], alignment=ft.MainAxisAlignment.CENTER), 
+             ft.Row([name_input], alignment=ft.MainAxisAlignment.CENTER), 
+             ft.Row([greet_button], alignment=ft.MainAxisAlignment.CENTER), 
+             ft.Row([history_text], alignment=ft.MainAxisAlignment.CENTER), 
+            )
 
 ft.app(target=main, view=ft.WEB_BROWSER)
