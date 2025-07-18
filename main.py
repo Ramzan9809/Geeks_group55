@@ -44,4 +44,4 @@ def main(page: ft.Page):
     page.add(greeting_text, name_input, greet_button, greet_button_1, clear_button, history_text)
 
 
-ft.app(target=main, view=ft.WEB_BROWSER) 
+ft.app(target=main, view=ft.WEB_BROWSER)  
